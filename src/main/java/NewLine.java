@@ -96,10 +96,10 @@ public class NewLine extends JDialog {
     private void onOK() {
         // add your code here
 
-        String sx1 =  xField1.getText();
+        String sx1 = xField1.getText();
         String sy1 = yField1.getText() ;
         String sx2 = xField2.getText();
-        String sy2 =  yField2.getText();
+        String sy2 = yField2.getText();
 
         double x1 = Double.parseDouble( sx1 );
         double y1 = Double.parseDouble( sy1 );
@@ -107,6 +107,7 @@ public class NewLine extends JDialog {
         double y2 = Double.parseDouble( sy2 );
 
         Line2D.Double l = new Line2D.Double(x1,y1,x2,y2);
+        dibujo.add( l );
 
         Element line = dibujo.getSVG().createElement("line");
         line.setAttribute("x1",sx1);
@@ -116,9 +117,8 @@ public class NewLine extends JDialog {
         line.setAttribute("stroke","black");
         line.setAttribute("stroke-width","2");
         dibujo.addElement(line);
-
-        dibujo.add( l );
         dibujo.repaint();
+
         try {
             prettyPrint(dibujo.getSVG());
         } catch (Exception e) {
