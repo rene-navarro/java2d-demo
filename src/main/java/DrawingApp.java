@@ -51,11 +51,12 @@ public class DrawingApp extends JFrame {
 
             doc = builder.newDocument();
             Element root = doc.createElement("svg");
-            root.setAttribute("width", "640");
+
+            doc.appendChild(root);
+           root.setAttribute("width", "640");
             root.setAttribute("height", "480");
             root.setAttribute("version", "1.1");
-            root.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            doc.appendChild(root);
+            root.setAttribute("xmlns", "http://www.w3.org/2000/svg");;
         } catch (ParserConfigurationException e) {
             LOGGER.severe(e.getMessage());
             doc = null;
@@ -73,7 +74,8 @@ public class DrawingApp extends JFrame {
         newItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                svgDoc = getNewDocument();
+                dibujo.setSvgDoc(svgDoc);
             }
         });
         fileMenu.add(newItem);
@@ -84,9 +86,12 @@ public class DrawingApp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 final JFileChooser fc = new JFileChooser();
                 fc.setCurrentDirectory(new File( System.getProperty("user.dir")));
+
                 int returnVal = fc.showSaveDialog(DrawingApp.this);
+
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
+
                     saveDocument(svgDoc,file);
 
                     LOGGER.info(file.getName());
@@ -119,7 +124,6 @@ public class DrawingApp extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 NewLine dialog = new NewLine(DrawingApp.this, dibujo);
                 dialog.setVisible(true);
-
             }
         });
         shapeMenu.add(lineItem);
@@ -146,7 +150,6 @@ public class DrawingApp extends JFrame {
     }
 
     public  final void saveDocument(Document xml, File file) {
-
         Transformer tf = null;
 
         FileWriter out = null;
@@ -162,7 +165,6 @@ public class DrawingApp extends JFrame {
         } catch (TransformerException e) {
             LOGGER.severe(e.getMessage());
         }
-
     }
 
 }

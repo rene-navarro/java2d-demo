@@ -52,7 +52,7 @@ public class Canvas extends JComponent {
 
     public void addElement(Element e) {
        Element root = svgDoc.getDocumentElement();
-        root.appendChild(e);
+       root.appendChild( e );
     }
 
 }
